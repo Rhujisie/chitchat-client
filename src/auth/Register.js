@@ -29,6 +29,7 @@ export default function Register(){
             navigate('/', {replace: true})
         }catch(err){
             console.log(err)
+            setLogin(false)
             setErrMsg(err.response.data.msg)
         }
     }

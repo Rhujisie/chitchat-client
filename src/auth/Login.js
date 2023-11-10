@@ -28,6 +28,7 @@ export default function Login(){
             navigate('/', {replace: true})
         }catch(err){
             console.log(err)
+            setLogin(false)
             setErrMsg(err.response.data.msg)
         }
     }

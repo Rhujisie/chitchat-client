@@ -35,7 +35,8 @@ export default function Chat(){
     },[])
     const connectToWs = ()=>{
         if(!auth) return
-        const ws = new WebSocket('ws://localhost:3000')
+        // const ws = new WebSocket('ws://localhost:3000')
+        const ws = new WebSocket('wss://ch-y5v4.onrender.com');
         setWs(ws)
         //send authentication
         // ws.addEventListener('open', ()=>{
@@ -135,6 +136,7 @@ export default function Chat(){
     //logout
     const handleLogout = async ()=>{
         try{
+            setLogout(true)
             await axiosPrivate.get('/logout')
             ws.send(JSON.stringify({
                 text: 'terminate'
@@ -144,6 +146,7 @@ export default function Chat(){
             navigate('/login', {replace: true})
         }catch(err){
             console.log(err)    
+            setLogout(false)
         }
     } 
     //handle file input
