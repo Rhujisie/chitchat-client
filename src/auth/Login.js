@@ -3,13 +3,15 @@ import axios from '../api/axios'
 import {useNavigate, Link} from 'react-router-dom'
 import useAuth from '../hook/useAuth'
 import {motion} from 'framer-motion'
+import Spinner from '../spinner/Spinner'
 
 export default function Login(){
     const [loginData, setLoginData] = useState({
         username:'', password: ''
     })
+    const [login, setLogin] = useState(false)
     const [errMsg, setErrMsg] = useState('')
-    const {auth, setAuth} = useAuth()
+    const {setAuth} = useAuth()
     const navigate = useNavigate()
 
     //clear error
@@ -20,8 +22,8 @@ export default function Login(){
     const handleSubmit = async(e) =>{
         e.preventDefault()
         try{
+            setLogin(true)
             const {data} = await axios.post('/auth/login', loginData)
-            console.log(data)
             setAuth(data)
             navigate('/', {replace: true})
         }catch(err){
@@ -32,8 +34,6 @@ export default function Login(){
     const handleChange =(e)=>{
         setLoginData(prev=> ({...prev, [e.target.name]: e.target.value}))
     }
-
-    console.log(auth)
 
     return(
         <div className='auth-container'>
@@ -57,7 +57,7 @@ export default function Login(){
                         placeholder='password'/>
                     <motion.button whileHover={{scale: 1.1}} whileTap={{scale: .9}}
                     transition={{type:'spring', stiffness: 100, damping: 10}}
-                    >login</motion.button>
+                    >{login? <Spinner/>: 'Login'}</motion.button>
                 </form>
                 <div className='redirect-button'>
                     <Link to='/register'>create a <span className='span'>ChitChat</span> account?</Link>

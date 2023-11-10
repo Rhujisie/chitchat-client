@@ -8,7 +8,7 @@ export default function Chat({users, selectUser, online, selectedUser}){
         transition={{type:'spring', stiffness: 100, damping: 10}}>
         <div className={`avatar`}>
             {user.username[0].toUpperCase()}
-            <div className={`${online[user._id]? 'online': ''}`}></div>
+            {online && <div className={`${online[user._id]? 'online': ''}`}></div>}
         </div>
         <div>{user.username}</div>
     </motion.div>)

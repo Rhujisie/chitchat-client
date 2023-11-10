@@ -3,6 +3,7 @@ import useAuth from '../hook/useAuth'
 import { useNavigate, Navigate } from 'react-router-dom'
 import useAxiosPrivate from '../hook/useAxiosPrivate'
 import {motion} from 'framer-motion'
+import Spinner from '../spinner/Spinner'
 
 import Users from './Users'
 import Message from './Message'
@@ -19,6 +20,7 @@ export default function Chat(){
     const [messages, setMessages] = useState([])
     const [file, setFile] = useState({})
     const [selectedImage, setSelectedImage] = useState()
+    const [logout, setLogout] = useState(false)
 
     const messageRef = useRef()
     const textRef = useRef()
@@ -190,7 +192,7 @@ export default function Chat(){
                     <motion.button onClick={handleLogout}
                     whileHover={{scale: 1.1}} whileTap={{scale: .9}}
                     transition={{type:'spring', stiffness: 100, damping: 10}}>
-                        Logout</motion.button>
+                        {logout? <Spinner/>: 'Logout'}</motion.button>
                 </div>
             </div>
             {selectedUser ? <div className={`message-container`}>

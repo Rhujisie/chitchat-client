@@ -352,7 +352,10 @@
     width: 180px;
     color: var(--background);
     font-size: 20px;
-    line-height: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .redirect-button{
     text-align: center;

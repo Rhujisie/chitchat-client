@@ -3,14 +3,16 @@ import axios from '../api/axios'
 import useAuth from '../hook/useAuth'
 import { useNavigate, Link } from 'react-router-dom'
 import {motion} from 'framer-motion'
+import Spinner from '../spinner/Spinner'
 
 export default function Register(){
     
     const [registerData, setRegisterData] = useState({
         username: '', password: ''
     })
+    const [login, setLogin] = useState(false)
     const [errMsg, setErrMsg] = useState('')
-    const {auth, setAuth} = useAuth()
+    const {setAuth} = useAuth()
     const navigate = useNavigate()
 
     //clear error
@@ -21,6 +23,7 @@ export default function Register(){
     const handleSubmit = async(e)=>{
         e.preventDefault()
         try{
+            setLogin(true)
             const {data} = await axios.post('/auth/register', registerData)
             setAuth(data)
             navigate('/', {replace: true})
@@ -33,7 +36,6 @@ export default function Register(){
     const handleChange = (e)=>{
         setRegisterData(prev=> ({...prev, [e.target.name]: e.target.value}))
     }
-    console.log(auth)
     return(
         <div className='auth-container'>
             <div className='heading chat-heading'>
@@ -56,7 +58,7 @@ export default function Register(){
                         placeholder='password'/>
                     <motion.button whileHover={{scale: 1.1}} whileTap={{scale: .9}}
                     transition={{type:'spring', stiffness: 100, damping: 10}}>
-                        Register</motion.button>
+                        {login? <Spinner/>: 'Register'}</motion.button>
                 </form>
                 <div className='redirect-button'>
                     <Link to='/login'>Already have an account?</Link>
