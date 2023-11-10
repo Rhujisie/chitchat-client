@@ -9,7 +9,7 @@ export default function Message({messagesArray, auth, selectedImage}){
             <>
                 {selectedImage?<img src={selectedImage} 
                         alt='car' className='display-image'/>
-                :<img src={`http://localhost:3000/uploads/${message.file}`} 
+                :<img src={`https://ch-y5v4.onrender.com/uploads/${message.file}`} 
                         alt='car' className='display-image'/>}
                 <div className='img-text'>{message.text}</div>
             </>: message.text}
